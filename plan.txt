@@ -1,0 +1,13 @@
+1. One request will be made and the array of every meals will be stored in the async storage.
+
+2. This array will be the initial State of the application.
+
+Screens:
+    Root:
+        Top tabs: 
+            Root:
+                Categories
+                Meals
+                MealDetails
+            Filters
+    Favourites
