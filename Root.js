@@ -55,7 +55,7 @@ function App() {
 
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import FiltersScreen from './screens/Tab/FiltersScreen';
-import {StatusBar} from 'react-native';
+import {Dimensions, StatusBar} from 'react-native';
 import MealsScreen from './screens/Tab/Meals/MealsScreen';
 import MealDetail from './screens/Tab/Meals/MealDetail';
 
