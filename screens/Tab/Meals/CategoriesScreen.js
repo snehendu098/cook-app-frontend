@@ -17,15 +17,19 @@ function CategoriesScreen({navigation}) {
   };
 
   useEffect(() => {
-    fetchData();
+    let mounted = true;
+    if (mounted) {
+      fetchData();
+    }
   }, [cate]);
 
   return (
     <ScrollView
       contentContainerStyle={{
         flexGrow: 1,
-        flexWrap: 'wrap',
         flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
       }}>
       {cate.map(item => (
         <React.Fragment key={item._id}>
