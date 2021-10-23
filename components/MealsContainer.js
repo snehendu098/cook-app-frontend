@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const MealsContainer = ({mealItem}) => {
+const MealsContainer = ({mealItem, onPress}) => {
   let Touchable = TouchableOpacity;
 
   if (Platform.OS === 'android') {
@@ -17,7 +17,7 @@ const MealsContainer = ({mealItem}) => {
   }
 
   return (
-    <Touchable>
+    <Touchable onPress={onPress}>
       <ImageBackground
         style={styles.container}
         resizeMode="cover"

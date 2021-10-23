@@ -7,49 +7,54 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FavouritesScreen from './screens/FavouritesScreen';
+import {Provider} from 'react-redux';
+
+const store = createStore(rootReducers);
 
 const Tab = createBottomTabNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <StatusBar
-        backgroundColor="transparent"
-        barStyle="dark-content"
-        translucent
-      />
-      <Tab.Navigator
-        screenOptions={{
-          tabBarActiveBackgroundColor: '#ffae00',
-          tabBarActiveTintColor: '#0055ff',
-          headerStyle: {
-            backgroundColor: '#ffae00',
-          },
-          headerTitleAlign: 'center',
-          headerTintColor: '#0055ff',
-        }}>
-        <Tab.Screen
-          name="Root"
-          component={TopTabs}
-          options={{
-            headerShown: false,
-            title: 'Meals',
-            tabBarIcon: ({size, color}) => {
-              return <Ionicons name="fast-food" size={size} color={color} />;
+    <Provider store={store}>
+      <NavigationContainer>
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle="dark-content"
+          translucent
+        />
+        <Tab.Navigator
+          screenOptions={{
+            tabBarActiveBackgroundColor: '#ffae00',
+            tabBarActiveTintColor: '#0055ff',
+            headerStyle: {
+              backgroundColor: '#ffae00',
             },
-          }}
-        />
-        <Tab.Screen
-          name="Favourites"
-          component={FavouritesScreen}
-          options={{
-            tabBarIcon: ({size, color}) => (
-              <MaterialIcons name="favorite" size={size} color={color} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </NavigationContainer>
+            headerTitleAlign: 'center',
+            headerTintColor: '#0055ff',
+          }}>
+          <Tab.Screen
+            name="Root"
+            component={TopTabs}
+            options={{
+              headerShown: false,
+              title: 'Meals',
+              tabBarIcon: ({size, color}) => {
+                return <Ionicons name="fast-food" size={size} color={color} />;
+              },
+            }}
+          />
+          <Tab.Screen
+            name="Favourites"
+            component={FavouritesScreen}
+            options={{
+              tabBarIcon: ({size, color}) => (
+                <MaterialIcons name="favorite" size={size} color={color} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
@@ -58,6 +63,8 @@ import FiltersScreen from './screens/Tab/FiltersScreen';
 import {Dimensions, StatusBar} from 'react-native';
 import MealsScreen from './screens/Tab/Meals/MealsScreen';
 import MealDetail from './screens/Tab/Meals/MealDetail';
+import {createStore} from 'redux';
+import rootReducers from './store/reducers';
 
 const TopTab = createMaterialTopTabNavigator();
 

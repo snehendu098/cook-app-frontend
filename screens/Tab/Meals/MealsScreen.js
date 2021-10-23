@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -10,27 +10,43 @@ import {
 import MealsContainer from '../../../components/MealsContainer';
 import axios from '../../../axios';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import {useDispatch, useSelector} from 'react-redux';
 
 const MealsScreen = ({navigation}) => {
-  const [meal, setMeal] = React.useState([]);
-
-  const fetchData = async () => {
-    let data = await axios.get('/meals');
-    setMeal(data.data);
-    return data;
-  };
+  const meals = useSelector(state => state.meals);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchData();
-  }, [meal]);
+    let mounted = true;
+
+    axios
+      .get('/meals')
+      .then(e => {
+        if (mounted) {
+          dispatch({type: 'ADD_MEALS', payload: e.data});
+        }
+      })
+      .catch(e => console.log(e));
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  console.log(meals);
 
   return (
     <View style={{flex: 1, alignItems: 'center'}}>
       <FlatList
-        data={meal}
-        renderItem={({item}) => <MealsContainer mealItem={item} />}
+        data={meals}
+        renderItem={({item}) => (
+          <MealsContainer
+            mealItem={item}
+            onPress={() => navigation.navigate('MealDetail', item)}
+          />
+        )}
         keyExtractor={item => item._id}
       />
+
       <Pressable style={styles.circle} onPress={() => navigation.goBack()}>
         <AntDesign name="back" size={30} color="#fff" />
       </Pressable>
