@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Button,
   Dimensions,
   ImageBackground,
   Pressable,
@@ -9,10 +10,32 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import GoBack from '../../../components/GoBack';
 
 const MealDetail = ({navigation, route}) => {
   const data = route.params;
+  const dispatch = useDispatch();
+  const [check, setCheck] = useState(false);
+
+  const favourites = useSelector(state => state.favourites);
+
+  const addToFav = () => {
+    check
+      ? dispatch({
+          type: 'REMOVE_FAV',
+          payload: data,
+        })
+      : dispatch({
+          type: 'ADD_TO_FAV',
+          payload: data,
+        });
+  };
+
+  useEffect(() => {
+    const verify = favourites.includes(data);
+    setCheck(verify);
+  }, [favourites]);
 
   // console.log(data);
 
@@ -27,6 +50,14 @@ const MealDetail = ({navigation, route}) => {
         style={styles.image}
         source={{uri: `http://192.168.0.106:5000/uploads/${data.imageUrl}`}}
         resizeMode="contain"></ImageBackground>
+      <View style={{width: 0.95 * Dimensions.get('window').width}}>
+        <Button
+          color="red"
+          title={check ? 'Remove from Favourites' : 'Add to favourites'}
+          touchSoundDisabled={false}
+          onPress={addToFav}
+        />
+      </View>
 
       <Text
         style={[
@@ -62,7 +93,6 @@ const MealDetail = ({navigation, route}) => {
         ]}>
         Steps of making
       </Text>
-      <GoBack naviagtion={navigation} />
 
       {data.steps.map((item, index) => (
         <Text
@@ -87,6 +117,7 @@ const MealDetail = ({navigation, route}) => {
           <Text style={styles.tag}>No meat included</Text>
         )}
       </View>
+      <GoBack naviagtion={navigation} />
     </ScrollView>
   );
 };
@@ -113,7 +144,8 @@ const styles = StyleSheet.create({
     marginTop: 0.05 * Dimensions.get('window').width,
   },
   lowerCont: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   tag: {
     padding: 9,
