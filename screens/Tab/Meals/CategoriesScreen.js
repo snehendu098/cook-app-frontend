@@ -61,7 +61,7 @@ function CategoriesScreen({navigation}) {
                       <CateContainer
                         name={item.name}
                         onPress={() => {
-                          navigation.navigate('Meals');
+                          navigation.navigate('Meals', {cate: item.name});
                         }}
                       />
                     </React.Fragment>

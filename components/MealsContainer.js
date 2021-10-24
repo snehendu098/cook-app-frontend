@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     height: 0.25 * Dimensions.get('window').height,
     width: 0.95 * Dimensions.get('window').width,
     backgroundColor: 'gray',
-    marginTop: 0.05 * Dimensions.get('window').width,
+    marginBottom: 0.05 * Dimensions.get('window').width,
     justifyContent: 'flex-end',
   },
   text: {

@@ -14,13 +14,13 @@ import GoBack from '../../../components/GoBack';
 const MealDetail = ({navigation, route}) => {
   const data = route.params;
 
-  console.log(data);
-
-  let dummy = ['Orange ', 'Juicer (optional) ', 'Salt', 'Sugar'];
+  // console.log(data);
 
   return (
     <ScrollView contentContainerStyle={{flexGrow: 1, alignItems: 'center'}}>
-      <Text style={styles.header}>{data.name}</Text>
+      <View style={styles.lowerCont}>
+        <Text style={styles.header}>{data.name}</Text>
+      </View>
       <Text style={styles.description}>{data.description}</Text>
 
       <ImageBackground
@@ -76,24 +76,16 @@ const MealDetail = ({navigation, route}) => {
       ))}
 
       <View style={styles.lowerCont}>
-        <View
-          style={{
-            flexDirection: 'row',
-            marginHorizontal: 10,
-            alignItems: 'center',
-          }}>
-          <Text style={{color: '#000', fontWeight: '500'}}>Meat Included</Text>
-          <Switch value={data.meatIncluded} thumbColor="#1260de" />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            marginHorizontal: 10,
-            alignItems: 'center',
-          }}>
-          <Text style={{color: '#000', fontWeight: '500'}}>Non Veg</Text>
-          <Switch value={data.nonVeg} thumbColor="#1260de" />
-        </View>
+        {data.nonVeg ? (
+          <Text style={styles.tag}>Non-Veg</Text>
+        ) : (
+          <Text style={styles.tag}>Veg</Text>
+        )}
+        {data.meatIncluded ? (
+          <Text style={styles.tag}>Meat Included</Text>
+        ) : (
+          <Text style={styles.tag}>No meat included</Text>
+        )}
       </View>
     </ScrollView>
   );
@@ -121,10 +113,13 @@ const styles = StyleSheet.create({
     marginTop: 0.05 * Dimensions.get('window').width,
   },
   lowerCont: {
-    backgroundColor: '#ffe7a6',
-    height: 0.1 * Dimensions.get('window').height,
-    width: 0.95 * Dimensions.get('window').width,
-    marginTop: 10,
+    flexDirection: 'row',
+  },
+  tag: {
+    padding: 9,
+    backgroundColor: '#0055ff',
+    margin: 10,
     borderRadius: 10,
+    elevation: 5,
   },
 });
