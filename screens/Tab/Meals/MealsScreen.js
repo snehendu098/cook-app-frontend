@@ -29,7 +29,7 @@ const MealsScreen = ({navigation, route}) => {
     axios
       .get('/meals')
       .then(e => {
-        if (mounted && meals.length === 0) {
+        if (mounted && meals != e.data) {
           dispatch({type: 'ADD_MEALS', payload: e.data});
         }
       })
@@ -39,7 +39,7 @@ const MealsScreen = ({navigation, route}) => {
     };
   }, []);
 
-  console.log('filters : ' + filters);
+  // console.log('filters : ' + filters);
 
   let filteredState = displayedMeals.filter(item => {
     if (filters.meatIncluded && !item.meatIncluded) {

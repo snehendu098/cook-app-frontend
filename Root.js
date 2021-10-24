@@ -64,7 +64,7 @@ import {Dimensions, StatusBar} from 'react-native';
 import MealsScreen from './screens/Tab/Meals/MealsScreen';
 import MealDetail from './screens/Tab/Meals/MealDetail';
 import {createStore} from 'redux';
-import rootReducers from './store/reducers';
+import rootReducers from './store';
 
 const TopTab = createMaterialTopTabNavigator();
 

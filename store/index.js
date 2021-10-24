@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import filtersReducer from './filterReducer';
-import mealsReducer from './mealReducer';
+import filtersReducer from './reducers/filterReducer';
+import mealsReducer from './reducers/mealReducer';
 
 // configuring all the reducers
 const rootReducers = combineReducers({
